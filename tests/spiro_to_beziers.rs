@@ -1,14 +1,14 @@
 use spiro_sys::{self, bezctx};
-use std::os::raw::c_int;
+use std::os::raw::{c_char, c_int};
 
 macro_rules! spiro_cp {
     ({$x:literal, $y:literal, $ty:literal}) => {
         spiro_sys::spiro_cp {
             x: $x as f64,
             y: $y as f64,
-            ty: $ty as i8
+            ty: $ty as c_char,
         }
-    }
+    };
 }
 
 unsafe extern "C" fn println_moveto(_bc: *mut bezctx, x: f64, y: f64, _is_open: c_int) {
@@ -20,7 +20,15 @@ unsafe extern "C" fn println_lineto(_bc: *mut bezctx, x: f64, y: f64) {
 unsafe extern "C" fn println_quadto(_bc: *mut bezctx, x1: f64, y1: f64, x2: f64, y2: f64) {
     println!("Q {}, {}, {}, {} ", x1, y1, x2, y2);
 }
-unsafe extern "C" fn println_curveto(_bc: *mut bezctx, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
+unsafe extern "C" fn println_curveto(
+    _bc: *mut bezctx,
+    x1: f64,
+    y1: f64,
+    x2: f64,
+    y2: f64,
+    x3: f64,
+    y3: f64,
+) {
     println!("C {}, {}, {}, {}, {}, {} ", x1, y1, x2, y2, x3, y3);
 }
 
@@ -48,7 +56,7 @@ fn spiro_to_beziers() {
         lineto: Some(println_lineto),
         quadto: Some(println_quadto),
         curveto: Some(println_curveto),
-        mark_knot: None
+        mark_knot: None,
     };
 
     unsafe {
