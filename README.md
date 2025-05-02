@@ -1,5 +1,7 @@
 # Rust binding to libspiro
 
+> This project is a fork of https://github.com/MFEK/spiro-sys.rlib.
+
 This is the low-level binding built with `bindgen`.
 
 `build.rs` builds `libspiro` from the Git submodule ([GitHub `fontforge/libspiro`](https://github.com/fontforge/libspiro/issues)).
