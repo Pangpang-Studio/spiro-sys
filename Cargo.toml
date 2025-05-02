@@ -2,7 +2,7 @@
 name = "spiro-sys"
 version = "0.1.0"
 authors = ["Fredrick Brennan <copypaste@kittens.ph>"]
-edition = "2018"
+edition = "2024"
 description = "Rust bindings for libspiro"
 links = "spiro"
 repository = "https://github.com/mfeq/spiro-sys/"
@@ -12,5 +12,5 @@ license = "Apache-2.0"
 
 [build-dependencies]
 cc = "1.0"
-bindgen = "0.55"
+bindgen = "0.71"
 dos2unix = "=0.1.0"

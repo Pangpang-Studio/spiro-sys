@@ -1,5 +1,4 @@
 /// Build libspiro binding for Rust.
-
 extern crate bindgen;
 extern crate cc;
 extern crate dos2unix;
@@ -13,13 +12,13 @@ fn do_bindgen() {
         .header("wrapper.h")
         // Tell cargo to invalidate the built crate whenever any of the
         // included header files changed.
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .derive_partialeq(true)
         .derive_debug(true)
         .derive_copy(true)
         .derive_default(true)
         // This function doesn't exist! Struct must be created.
-        .blacklist_function("new_bezctx")
+        .blocklist_function("new_bezctx")
         // Avoids silly warnings about case of types. They're from C...
         .raw_line("#![allow(non_camel_case_types, non_snake_case)]")
         .generate()
@@ -47,8 +46,6 @@ fn main() {
         .shared_flag(true)
         .static_crt(true)
         .compile("libspiro.a");
-
-    println!("cargo:rerun-if-changed=wrapper.h");
 
     // Link built library. "lib" and ".a" are added back by Cargo.
     println!("cargo:rustc-link-lib=static=spiro");
