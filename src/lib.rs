@@ -22,22 +22,8 @@ pub const SPIRO_CUBIC_MIN_MAYBE: u32 = 4096;
 pub const SPIRO_ARC_MAYBE: u32 = 8192;
 pub const SPIRO_ARC_MIN_MAYBE: u32 = 12288;
 pub const SPIRO_QUAD0_TO_BEZIER: u32 = 16384;
+pub const SPIRO_INTERNAL_BEZCTX: u32 = 512;
 pub type bezctx = _bezctx;
-extern "C" {
-    pub fn bezctx_moveto(bc: *mut bezctx, x: f64, y: f64, is_open: ::std::os::raw::c_int);
-}
-extern "C" {
-    pub fn bezctx_lineto(bc: *mut bezctx, x: f64, y: f64);
-}
-extern "C" {
-    pub fn bezctx_quadto(bc: *mut bezctx, x1: f64, y1: f64, x2: f64, y2: f64);
-}
-extern "C" {
-    pub fn bezctx_curveto(bc: *mut bezctx, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64);
-}
-extern "C" {
-    pub fn bezctx_mark_knot(bc: *mut bezctx, knot_idx: ::std::os::raw::c_int);
-}
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct _bezctx {
@@ -117,6 +103,199 @@ fn bindgen_test_layout__bezctx() {
             stringify!(mark_knot)
         )
     );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct curve_data {
+    pub ty: ::std::os::raw::c_char,
+    pub x0: f64,
+    pub y0: f64,
+    pub x1: f64,
+    pub y1: f64,
+    pub x2: f64,
+    pub y2: f64,
+    pub x3: f64,
+    pub y3: f64,
+}
+#[test]
+fn bindgen_test_layout_curve_data() {
+    assert_eq!(
+        ::std::mem::size_of::<curve_data>(),
+        72usize,
+        concat!("Size of: ", stringify!(curve_data))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<curve_data>(),
+        8usize,
+        concat!("Alignment of ", stringify!(curve_data))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).ty as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(ty)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).x0 as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(x0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).y0 as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(y0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).x1 as *const _ as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(x1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).y1 as *const _ as usize },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(y1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).x2 as *const _ as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(x2)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).y2 as *const _ as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(y2)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).x3 as *const _ as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(x3)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<curve_data>())).y3 as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(curve_data),
+            "::",
+            stringify!(y3)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct ls_bezctx {
+    pub base: bezctx,
+    pub cd: *mut curve_data,
+    pub l: ::std::os::raw::c_int,
+    pub max: ::std::os::raw::c_int,
+    pub is_open: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_ls_bezctx() {
+    assert_eq!(
+        ::std::mem::size_of::<ls_bezctx>(),
+        64usize,
+        concat!("Size of: ", stringify!(ls_bezctx))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<ls_bezctx>(),
+        8usize,
+        concat!("Alignment of ", stringify!(ls_bezctx))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ls_bezctx>())).base as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ls_bezctx),
+            "::",
+            stringify!(base)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ls_bezctx>())).cd as *const _ as usize },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ls_bezctx),
+            "::",
+            stringify!(cd)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ls_bezctx>())).l as *const _ as usize },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ls_bezctx),
+            "::",
+            stringify!(l)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ls_bezctx>())).max as *const _ as usize },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ls_bezctx),
+            "::",
+            stringify!(max)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ls_bezctx>())).is_open as *const _ as usize },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ls_bezctx),
+            "::",
+            stringify!(is_open)
+        )
+    );
+}
+impl Default for ls_bezctx {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
 }
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
@@ -302,10 +481,7 @@ extern "C" {
         ncq: ::std::os::raw::c_int,
         n: ::std::os::raw::c_int,
         bc: *mut bezctx,
-    );
-}
-extern "C" {
-    pub fn spiroreverse(src: *mut spiro_cp, n: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn LibSpiroVersion() -> *const ::std::os::raw::c_char;
@@ -364,4 +540,10 @@ extern "C" {
         isclosed: ::std::os::raw::c_int,
         bc: *mut bezctx,
     ) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn new_ls_bezctx(max: ::std::os::raw::c_int, ncq: ::std::os::raw::c_int) -> *mut ls_bezctx;
+}
+extern "C" {
+    pub fn free_ls_bezctx(bd: *mut ls_bezctx);
 }
