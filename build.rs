@@ -38,7 +38,7 @@ fn main() {
     cc::Build::new()
         // We aren't using libspiro's autotools build, so I wrote a generic spiro-config.h which
         // will work on all the systems I care about.
-        .include(".") // for spiro-config.h
+        .include(".") // for spiro-config.h, wrapper.h and spiroentrypoints.h
         .file("libspiro/bezctx.c")
         .file("libspiro/spiro.c")
         .file("libspiro/spiroentrypoints.c")
