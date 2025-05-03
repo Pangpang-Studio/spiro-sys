@@ -85,8 +85,8 @@ extern int SpiroCPsToBezier2(spiro_cp *spiros,int n,int ncq,int isclosed,bezctx 
 /* These two functions are available in libspiro-20220722 or higher */
 /* and used exclusively with ncq definition "SPIRO_INTERNAL_BEZCTX" */
 /* tests/call-test21.c sample code shows how to use these functions */
-ls_bezctx *new_ls_bezctx(int max, int ncq);
-void free_ls_bezctx(ls_bezctx *bd);
+extern ls_bezctx *new_ls_bezctx(int max, int ncq);
+extern void free_ls_bezctx(ls_bezctx *bd);
 
 #ifdef __cplusplus
 }
